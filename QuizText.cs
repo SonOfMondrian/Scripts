@@ -22,20 +22,9 @@ public class QuizText : MonoBehaviour {
 
         LeftSol = BrainManager.instance.LeftBox;
         RightSol = BrainManager.instance.RightBox;
-        //QuizPanelText = this.transform.Find("Text").GetComponent<TextMesh>();
-        //LeftSol = GameObject.Find("Left");
-        //RightSol = GameObject.Find("Right");
 
         QuizSolutions = new int[2];
 
-    }
-    private void OnLevelWasLoaded(int level)
-    {
-        //if (SceneManager.GetActiveScene().buildIndex == 1)
-        //{
-        //    LeftSol = BrainManager.instance.LeftBox;
-        //    RightSol = BrainManager.instance.RightBox;
-        //}
     }
     // Update is called once per frame
     void Update () {
@@ -66,23 +55,12 @@ public class QuizText : MonoBehaviour {
         {
             SolText1.text = sol1.ToString();
             SolText2.text = sol2.ToString();
-            //LeftSol.transform.Find("LeftText").GetComponent<TextMesh>().text = sol1.ToString();
-           // RightSol.transform.Find("RightText").GetComponent<TextMesh>().text = sol2.ToString();
-
-        }
+            }
         else if(random==1)
         {
 
             SolText1.text = sol2.ToString();
             SolText2.text = sol1.ToString();
-            //LeftSol.transform.Find("LeftText").GetComponent<TextMesh>().text = sol2.ToString();
-            // RightSol.transform.Find("RightText").GetComponent<TextMesh>().text = sol1.ToString();
-        }
-        
-        
-
-        //LeftSol.transform.Find("LeftText").GetComponent<TextMesh>().text = sol1.ToString();
-       // RightSol.transform.Find("RightText").GetComponent<TextMesh>().text = sol2.ToString();
-
+            }
     }
 }

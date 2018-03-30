@@ -54,19 +54,7 @@ public class HandleTextFile : MonoBehaviour {
         QuizDatabase = Resources.Load<TextAsset>("Text/Quiz");
         SolutionDatabase = Resources.Load<TextAsset>("Text/Solutions");
         readtext();
-        //if (SceneManager.GetActiveScene().name == "Game")
-        //{
-        //    QuizFunction = GameObject.Find("QuizPanel").transform.Find("Panel").gameObject;     //SetQuiz3함수를 호출하기 위한 오브젝트 초기화
-        //    readtext();
-        //}
 
-    }
-    private void OnLevelWasLoaded(int level)
-    {
-        if(SceneManager.GetActiveScene().buildIndex == 1)
-        {
-            //QuizFunction = GameObject.Find("QuizPanel").transform.Find("Panel").gameObject;     //SetQuiz3함수를 호출하기 위한 오브젝트 초기화
-        }
     }
 
     private void Update()

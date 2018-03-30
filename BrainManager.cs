@@ -169,19 +169,4 @@ public class BrainManager : MonoBehaviour
         SoundManager.instance.PlayButton();
 
     }
-    private void OnLevelWasLoaded(int level)
-    {
-        if (level == 1)
-        {
-            //LeftBox = GameObject.Find("Left");
-            //RightBox = GameObject.Find("Right");
-            //Timer = GameObject.Find("Timer");
-            //mats[0] = Resources.Load<Material>("Materials/Blue");
-            //mats[1] = Resources.Load<Material>("Materials/Red");
-            //mats[2] = Resources.Load<Material>("Materials/idleTimer");
-            //this.GetComponent<HandleTextFile>().QuizFunction = GameObject.Find("QuizPanel").transform.Find("Panel").gameObject;
-
-            //SetQuiz1(true);
-        }
-    }
 }
