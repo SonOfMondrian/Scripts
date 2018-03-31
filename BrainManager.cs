@@ -23,6 +23,7 @@ public class BrainManager:MonoBehaviour
     public int CorrectNum;
 
     public Animator TimerAnimation;
+    public Animator FloorAnimation;
 
     private AudioSource source;
     private AudioClip clip;
@@ -62,7 +63,9 @@ public class BrainManager:MonoBehaviour
         LeftBox = GameObject.Find("Left");
         RightBox = GameObject.Find("Right");
         Timer = GameObject.Find("Timer");
+
         TimerAnimation = Timer.GetComponent<Animator>();
+        FloorAnimation = GameObject.Find("floordoor_lambert").GetComponent<Animator>();
         mats[0] = Resources.Load<Material>("Materials/Blue");
         mats[1] = Resources.Load<Material>("Materials/Red");
         mats[2] = Resources.Load<Material>("Materials/idleTimer");
@@ -148,6 +151,7 @@ public class BrainManager:MonoBehaviour
             {
                 Debug.Log("오답입니다");
                 Panel.GetComponent<QuizText>().Incorrect();
+                FloorAnimation.SetBool("OpenFloor",true);
             }
         }
         else if(IsRight)
@@ -161,6 +165,7 @@ public class BrainManager:MonoBehaviour
             {
                 Debug.Log("오답입니다");
                 Panel.GetComponent<QuizText>().Incorrect();
+                FloorAnimation.SetBool("OpenFloor",true);
             }
         }
         else if(!IsLeft && !IsRight)    //둘다 꺼져 있으면 오답처리
