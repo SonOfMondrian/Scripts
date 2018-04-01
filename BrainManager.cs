@@ -24,6 +24,7 @@ public class BrainManager:MonoBehaviour
 
     public Animator TimerAnimation;
     public Animator FloorAnimation;
+    public Animator DoorAnimation;
 
     private AudioSource source;
     private AudioClip clip;
@@ -66,13 +67,23 @@ public class BrainManager:MonoBehaviour
 
         TimerAnimation = Timer.GetComponent<Animator>();
         FloorAnimation = GameObject.Find("floordoor_lambert").GetComponent<Animator>();
+        DoorAnimation = GameObject.Find("liftdoor_lambert").GetComponent<Animator>();
+
         mats[0] = Resources.Load<Material>("Materials/Blue");
         mats[1] = Resources.Load<Material>("Materials/Red");
         mats[2] = Resources.Load<Material>("Materials/idleTimer");
         this.GetComponent<HandleTextFile>().QuizFunction = GameObject.Find("QuizPanel").transform.Find("Panel").gameObject;
-
+        
         SetQuiz1(true);
+        Invoke("FirstOpenDoor",1.5f);
     }
+    void FirstOpenDoor()
+    {
+        Debug.Log("문 열림!");
+        DoorAnimation.SetBool("OpenDoor",true);
+
+    }
+
     void FindPlayer()       //게임씬으로 이동후 1초후 함수 호출
     {
         Player = GameObject.Find("Player");             //일단 시뮬레이터 오브젝트 찾기
@@ -171,6 +182,7 @@ public class BrainManager:MonoBehaviour
             Debug.Log("오답입니다");
             IsCorrect = false;
         }
+
         if(IsCorrect)
         {
             Panel.GetComponent<QuizText>().Correct();
@@ -178,6 +190,7 @@ public class BrainManager:MonoBehaviour
         else if(!IsCorrect)
         {
             Panel.GetComponent<QuizText>().Incorrect();
+            DoorAnimation.SetBool("CloseDoor",true);
             //FloorAnimation.SetBool("OpenFloor",true);
         }
     }
