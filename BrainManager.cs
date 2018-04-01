@@ -137,6 +137,7 @@ public class BrainManager:MonoBehaviour
 
     public void CheckQuiz()     //선택된 상자를 채점하는 함수 (Timer 오브젝트의 CallCheckQuiz 스크립트에서 호출한다)
     {
+        bool IsCorrect = false;
         IsProgress = false;
         TimerAnimation.SetBool("SetQuiz",false);
         if(IsLeft)
@@ -144,14 +145,12 @@ public class BrainManager:MonoBehaviour
             if(LeftBox.transform.Find("LeftText").GetComponent<TextMesh>().text == CorrectNum.ToString())
             {
                 Debug.Log("정답입니다");
-                Panel.GetComponent<QuizText>().Correct();
+                IsCorrect = true;
             }
-
             else
             {
                 Debug.Log("오답입니다");
-                Panel.GetComponent<QuizText>().Incorrect();
-                FloorAnimation.SetBool("OpenFloor",true);
+                IsCorrect = false;
             }
         }
         else if(IsRight)
@@ -159,19 +158,27 @@ public class BrainManager:MonoBehaviour
             if(RightBox.transform.Find("RightText").GetComponent<TextMesh>().text == CorrectNum.ToString())
             {
                 Debug.Log("정답입니다");
-                Panel.GetComponent<QuizText>().Correct();
+                IsCorrect = true;
             }
             else
             {
                 Debug.Log("오답입니다");
-                Panel.GetComponent<QuizText>().Incorrect();
-                FloorAnimation.SetBool("OpenFloor",true);
+                IsCorrect = false;
             }
         }
         else if(!IsLeft && !IsRight)    //둘다 꺼져 있으면 오답처리
         {
             Debug.Log("오답입니다");
+            IsCorrect = false;
+        }
+        if(IsCorrect)
+        {
+            Panel.GetComponent<QuizText>().Correct();
+        }
+        else if(!IsCorrect)
+        {
             Panel.GetComponent<QuizText>().Incorrect();
+            //FloorAnimation.SetBool("OpenFloor",true);
         }
     }
 
