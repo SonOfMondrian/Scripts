@@ -11,6 +11,8 @@ public class BrainManager:MonoBehaviour
 
     public bool IsLeft, IsRight;        //왼쪽 오른쪽 박스 체크
     public bool IsProgress;
+    public bool LookGameStart;
+    public bool OpenDoor;
     public bool AfterCheck;             //비활성 되었있는 Player를 찾기 위해 1초후에 찾기 위한 체크변수
     public float AfterCheckTime;        //Player를찾기위한 시간 변수
 
@@ -21,16 +23,18 @@ public class BrainManager:MonoBehaviour
     public Material[] mats;
 
     public int CorrectNum;
+    public int Score;
 
     public Animator TimerAnimation;
-    public Animator FloorAnimation;
     public Animator DoorAnimation;
+    public Animator GameStartAnimation;
 
     private AudioSource source;
     private AudioClip clip;
 
     void Awake()
     {
+
         instance = this;
         mats = new Material[3];
 
@@ -41,6 +45,9 @@ public class BrainManager:MonoBehaviour
     void Start()
     {
         AfterCheckTime = 0;
+        Score = 0;
+        LookGameStart = false;
+        OpenDoor = false;
         AfterCheck = false;
         IsLeft = false;
         IsRight = false;
@@ -66,16 +73,15 @@ public class BrainManager:MonoBehaviour
         Timer = GameObject.Find("Timer");
 
         TimerAnimation = Timer.GetComponent<Animator>();
-        FloorAnimation = GameObject.Find("floordoor_lambert").GetComponent<Animator>();
         DoorAnimation = GameObject.Find("liftdoor_lambert").GetComponent<Animator>();
+        GameStartAnimation = GameObject.Find("MainPanel").GetComponent<Animator>();
+
 
         mats[0] = Resources.Load<Material>("Materials/Blue");
         mats[1] = Resources.Load<Material>("Materials/Red");
         mats[2] = Resources.Load<Material>("Materials/idleTimer");
         this.GetComponent<HandleTextFile>().QuizFunction = GameObject.Find("QuizPanel").transform.Find("Panel").gameObject;
         
-        SetQuiz1(true);
-        Invoke("FirstOpenDoor",1.5f);
     }
     void FirstOpenDoor()
     {
@@ -91,7 +97,7 @@ public class BrainManager:MonoBehaviour
             Player = GameObject.Find("CenterEyeAnchor");//오큘러스 오브젝트를 찾기
     }
 
-    public void SetQuiz1(bool first = false)      //문제 출제 최초 출발 함수 (Start함수에서 함수호출하면서 일단 최초로 시작됨)
+    public void SetQuiz1()      //문제 출제 최초 출발 함수 (Start함수에서 함수호출하면서 일단 최초로 시작됨)
     {
         if(SceneManager.GetActiveScene().name != "Game") return;       //조기리턴, 버그로 메뉴인 상태에서 함수 호출을 막기위한 미연의 방지
 
@@ -104,7 +110,7 @@ public class BrainManager:MonoBehaviour
         TimerAnimation.SetBool("SetQuiz",true);    //타이머 애니메이션 시작
         IsProgress = true;
 
-        if(first == false)     //씬 이동후 최초 호출이 아니면
+       // if(first == false)     //씬 이동후 최초 호출이 아니면
             Player.GetComponent<Raycast>().hittime = 0.0f;
 
         IsLeft = false;
@@ -191,15 +197,23 @@ public class BrainManager:MonoBehaviour
         {
             Panel.GetComponent<QuizText>().Incorrect();
             DoorAnimation.SetBool("CloseDoor",true);
-            //FloorAnimation.SetBool("OpenFloor",true);
         }
     }
 
     public void LookGameStartObject(RaycastHit hit)    //메인씬의 게임시작 오브젝트 쳐다봤을시 씬 이동
     {
         hit.collider.GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
-        GameObject.Find("Fade").GetComponent<GameStart>().LoadGameScene();
 
+        GameStartAnimation.SetBool("GameStart_Fall",true);
+        Invoke("IsOpenDoor",1.5f);
         SoundManager.instance.PlayButton();
+
+        
+    }
+    public void IsOpenDoor()
+    {
+        DoorAnimation.SetBool("OpenDoor",true);
+        Invoke("SetQuiz1",1.5f);
+        
     }
 }
