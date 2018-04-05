@@ -14,6 +14,8 @@ public class BrainManager:MonoBehaviour
     public bool LookGameStart;
     public bool OpenDoor;
     public bool AfterCheck;             //비활성 되었있는 Player를 찾기 위해 1초후에 찾기 위한 체크변수
+    public int Level;                    //현재 스테이지 레벨;
+
     public float AfterCheckTime;        //Player를찾기위한 시간 변수
 
     public GameObject Player;           //Player오브젝트
@@ -46,6 +48,7 @@ public class BrainManager:MonoBehaviour
     {
         AfterCheckTime = 0;
         Score = 0;
+        Level = 1;
         LookGameStart = false;
         OpenDoor = false;
         AfterCheck = false;
