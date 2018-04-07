@@ -19,4 +19,9 @@ public class DoorStruct : MonoBehaviour {
     {
         this.GetComponent<Animator>().SetBool("CloseDoor",false);
     }
+    public void OpenAndSetQuiz()
+    {
+        BrainManager.instance.IsOpenDoor();
+
+    }
 }
