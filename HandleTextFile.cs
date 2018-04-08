@@ -9,11 +9,8 @@ public class HandleTextFile : MonoBehaviour
     public TextAsset[] QuizDatabase = new TextAsset[5];
     public TextAsset[] SolutionDatabase = new TextAsset[5];
 
-    // public TextAsset QuizDatabase;
-    //public TextAsset SolutionDatabase;
+    public TextAsset HighScore;
 
-   // public string[,] values;
-    //public int[,] solutions;
 
 
     public string[] values1;
@@ -34,6 +31,7 @@ public class HandleTextFile : MonoBehaviour
     public int solindex4;
     public int solindex5;
 
+    public string scoreval;
 
     int RandomIndex;
 
@@ -43,31 +41,6 @@ public class HandleTextFile : MonoBehaviour
 
     public GameObject QuizFunction;
 
-
-    // public int index;
-
-    //static void writestring()
-    //{
-    //    string Path = "Assets/Resources/Text.txt";
-    //    StreamWriter writer = new StreamWriter(Path);
-
-    //    writer.WriteLine("Test");
-    //    writer.WriteLine("asdf");
-    //    writer.WriteLine("Teqwerst");
-
-    //    writer.WriteLine("Tehhst");
-    //    writer.WriteLine("Tem,m,.m,.st");
-    //    writer.WriteLine("Tefgfghst");
-
-    //    writer.Close();
-
-    //    //AssetDatabase.ImportAsset(Path);
-    //    //TextAsset asset = Resources.Load<TextAsset>("test");
-
-    //    Debug.Log("test");
-    //}
-
-    // Use this for initialization
     void Start()
     {
         QuizDatabase = new TextAsset[5];
@@ -85,8 +58,6 @@ public class HandleTextFile : MonoBehaviour
         solutions4 = new int[40];
         solutions5 = new int[40];
 
-        //values = new string[5, 20];
-        //solutions = new int[5, 40];
 
         index = 0;
         solindex1 = 0;
@@ -95,22 +66,36 @@ public class HandleTextFile : MonoBehaviour
         solindex4 = 0;
         solindex5 = 0;
 
+        HighScore = Resources.Load<TextAsset>("Text/HighScore");
 
         for (int i = 0; i < 5; i++)
         {
-            QuizDatabase[i] = Resources.Load<TextAsset>("Text/Quiz" + (i+1).ToString());
-            SolutionDatabase[i] = Resources.Load<TextAsset>("Text/Solutions" + (i+1).ToString());
+            QuizDatabase[i] = Resources.Load<TextAsset>("Text/Quiz" + (i + 1).ToString());
+            SolutionDatabase[i] = Resources.Load<TextAsset>("Text/Solutions" + (i + 1).ToString());
         }
-        //QuizDatabase = Resources.Load<TextAsset>("Text/Quiz");
-        // SolutionDatabase = Resources.Load<TextAsset>("Text/Solutions");
         readtext();
-
+        GetHightScore();
     }
 
-    void Update()
+    public void GetHightScore()
     {
+        StringReader sr;
+
+        sr = new StringReader(HighScore.text);
+
+        string Quizsources1 = sr.ReadLine();
+
+        if (sr == null)
+            return;
+
+        scoreval = Quizsources1;
+
+        BrainManager.instance.HighScore =scoreval;
+
+        sr.Close();
 
     }
+
     public void readtext()
     {
         StringReader[] sr = new StringReader[5];
@@ -122,13 +107,6 @@ public class HandleTextFile : MonoBehaviour
             sol[i] = new StringReader(SolutionDatabase[i].text);
 
         }
-
-
-
-        // StringReader sr = new StringReader(QuizDatabase.text);
-        //StringReader sol = new StringReader(SolutionDatabase.text);
-
-
         while (true)
         {
 
@@ -147,7 +125,7 @@ public class HandleTextFile : MonoBehaviour
 
             if (Quizsources5 == null)
                 break;
-            
+
             values1[index] = Quizsources1;
             values2[index] = Quizsources2;
             values3[index] = Quizsources3;
@@ -187,12 +165,19 @@ public class HandleTextFile : MonoBehaviour
             }
             index++;
         }
+        for (int i = 0; i < sr.Length; i++)
+        {
+            sr[i].Close();
+            sol[i].Close();
+        }
+
     }
+
 
     public void SetQuiz2()
     {
 
-        switch(BrainManager.instance.Level)
+        switch (BrainManager.instance.Level)
         {
             case 1:
                 RandomIndex = Random.Range(0, values1.Length);   //ex) 0,5 넣으면 0~4까지만 나온다.
@@ -203,7 +188,7 @@ public class HandleTextFile : MonoBehaviour
                 solution2 = solutions1[RandomIndex * 2 + 1];
                 break;
             case 2:
-                RandomIndex = Random.Range(0, values2.Length);   
+                RandomIndex = Random.Range(0, values2.Length);
 
                 RandomQuizString = values2[RandomIndex];
 
@@ -211,7 +196,7 @@ public class HandleTextFile : MonoBehaviour
                 solution2 = solutions2[RandomIndex * 2 + 1];
                 break;
             case 3:
-                RandomIndex = Random.Range(0, values3.Length);   
+                RandomIndex = Random.Range(0, values3.Length);
 
                 RandomQuizString = values3[RandomIndex];
 
@@ -219,7 +204,7 @@ public class HandleTextFile : MonoBehaviour
                 solution2 = solutions3[RandomIndex * 2 + 1];
                 break;
             case 4:
-                RandomIndex = Random.Range(0, values4.Length);   
+                RandomIndex = Random.Range(0, values4.Length);
 
                 RandomQuizString = values4[RandomIndex];
 
@@ -227,7 +212,7 @@ public class HandleTextFile : MonoBehaviour
                 solution2 = solutions4[RandomIndex * 2 + 1];
                 break;
             case 5:
-                RandomIndex = Random.Range(0, values5.Length);   
+                RandomIndex = Random.Range(0, values5.Length);
 
                 RandomQuizString = values5[RandomIndex];
 
@@ -235,12 +220,12 @@ public class HandleTextFile : MonoBehaviour
                 solution2 = solutions5[RandomIndex * 2 + 1];
                 break;
         }
-        if(BrainManager.instance.Level ==1)
+        if (BrainManager.instance.Level == 1)
         {
-            RandomIndex = Random.Range(0, values1.Length);   
+            RandomIndex = Random.Range(0, values1.Length);
 
             RandomQuizString = values1[RandomIndex];
-            
+
             solution1 = solutions1[RandomIndex * 2];
             solution2 = solutions1[RandomIndex * 2 + 1];
 

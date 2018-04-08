@@ -6,7 +6,7 @@ public class DontDestroy : MonoBehaviour {
 
     private void Awake()
     {
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
     }
     // Use this for initialization
     void Start () {

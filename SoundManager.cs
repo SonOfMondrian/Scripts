@@ -13,10 +13,23 @@ public class SoundManager : MonoBehaviour {
     private void Awake()
     {
         instance = this;
+
+        Clips = new AudioClip[8];
+
+        Clips[0] = Resources.Load<AudioClip>("Sound/Correct");
+        Clips[1] = Resources.Load<AudioClip>("Sound/DoorClose");
+        Clips[2] = Resources.Load<AudioClip>("Sound/DoorOpen");
+        Clips[3] = Resources.Load<AudioClip>("Sound/Startup");
+        Clips[4] = Resources.Load<AudioClip>("Sound/FloorOpen");
+        Clips[5] = Resources.Load<AudioClip>("Sound/InCorrect");
+        Clips[6] = Resources.Load<AudioClip>("Sound/Levelup");
+        Clips[7] = Resources.Load<AudioClip>("Sound/ObjectSelect");
+
+
     }
     void Start () {
         AudioPlayer = this.GetComponent<AudioSource>();
-        Clips = Resources.LoadAll<AudioClip>("Sound");
+        //Clips = Resources.LoadAll<AudioClip>("Sound");
 	}
 
     public void PlayButtonSelect()

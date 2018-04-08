@@ -23,19 +23,20 @@ public class BrainManager:MonoBehaviour
     public GameObject LeftBox, RightBox;
     public GameObject Timer;
     public GameObject Panel;
+    public GameObject ScoreText;
     public Material[] mats;
 
     public int CorrectNum;
     public int Score;
-    public int HighScore;
+    public string HighScore;
 
     public Animator TimerAnimation;
     public Animator DoorAnimation;
     public Animator FloorAnimation;
     public Animator GameStartAnimation;
 
-    private AudioSource source;
-    private AudioClip clip;
+    //private AudioSource source;
+   // private AudioClip clip;
 
     void Awake()
     {
@@ -46,6 +47,24 @@ public class BrainManager:MonoBehaviour
         mats[0] = Resources.Load<Material>("Materials/Blue");
         mats[1] = Resources.Load<Material>("Materials/Red");
         mats[2] = Resources.Load<Material>("Materials/idleTimer");
+        
+        Panel = GameObject.Find("QuizPanel").transform.Find("Panel").gameObject;
+        LeftBox = GameObject.Find("Left");
+        RightBox = GameObject.Find("Right");
+        Timer = GameObject.Find("Timer");
+        ScoreText = GameObject.Find("Score").transform.Find("ScoreText").gameObject;
+
+        TimerAnimation = Timer.GetComponent<Animator>();
+        DoorAnimation = GameObject.Find("liftdoor_lambert").GetComponent<Animator>();
+        FloorAnimation = GameObject.Find("liftdoor_floor").GetComponent<Animator>();
+        GameStartAnimation = GameObject.Find("MainPanel").GetComponent<Animator>();
+
+
+        mats[0] = Resources.Load<Material>("Materials/Blue");
+        mats[1] = Resources.Load<Material>("Materials/Red");
+        mats[2] = Resources.Load<Material>("Materials/idleTimer");
+        this.GetComponent<HandleTextFile>().QuizFunction = GameObject.Find("QuizPanel").transform.Find("Panel").gameObject;
+
     }
     void Start()
     {
@@ -53,13 +72,15 @@ public class BrainManager:MonoBehaviour
         Score = 0;
         Level = 1;
         CountOfLevel = 0;
-        HighScore = 0;
+        //HighScore = 0;
         LookGameStart = false;
         OpenDoor = false;
         AfterCheck = false;
         IsLeft = false;
         IsRight = false;
         IsProgress = false;
+
+        ScoreText.GetComponent<TextMesh>().text = HighScore;
 
     }
 
@@ -76,23 +97,25 @@ public class BrainManager:MonoBehaviour
     }
     public void OnLoadedScene()     //게임씬으로 이동하면 각종 오브젝트들을 초기화 해주는 함수(Initialize오브젝트에서 호출된다)(OnLevelWasLoaded함수가 Awake함수보다 빨리 호출되어 초기화가 어렵다)
     {
-        Panel = GameObject.Find("QuizPanel").transform.Find("Panel").gameObject;
-        LeftBox = GameObject.Find("Left");
-        RightBox = GameObject.Find("Right");
-        Timer = GameObject.Find("Timer");
+        //Panel = GameObject.Find("QuizPanel").transform.Find("Panel").gameObject;
+        //LeftBox = GameObject.Find("Left");
+        //RightBox = GameObject.Find("Right");
+        //Timer = GameObject.Find("Timer");
+        //ScoreText = GameObject.Find("Score").transform.Find("ScoreText").gameObject;
 
-        TimerAnimation = Timer.GetComponent<Animator>();
-        DoorAnimation = GameObject.Find("liftdoor_lambert").GetComponent<Animator>();
-        FloorAnimation = GameObject.Find("liftdoor_floor").GetComponent<Animator>();
-        GameStartAnimation = GameObject.Find("MainPanel").GetComponent<Animator>();
+        //TimerAnimation = Timer.GetComponent<Animator>();
+        //DoorAnimation = GameObject.Find("liftdoor_lambert").GetComponent<Animator>();
+        //FloorAnimation = GameObject.Find("liftdoor_floor").GetComponent<Animator>();
+        //GameStartAnimation = GameObject.Find("MainPanel").GetComponent<Animator>();
 
 
-        mats[0] = Resources.Load<Material>("Materials/Blue");
-        mats[1] = Resources.Load<Material>("Materials/Red");
-        mats[2] = Resources.Load<Material>("Materials/idleTimer");
-        this.GetComponent<HandleTextFile>().QuizFunction = GameObject.Find("QuizPanel").transform.Find("Panel").gameObject;
+        //mats[0] = Resources.Load<Material>("Materials/Blue");
+        //mats[1] = Resources.Load<Material>("Materials/Red");
+        //mats[2] = Resources.Load<Material>("Materials/idleTimer");
+        //this.GetComponent<HandleTextFile>().QuizFunction = GameObject.Find("QuizPanel").transform.Find("Panel").gameObject;
         
     }
+
     void FirstOpenDoor()
     {
         Debug.Log("문 열림!");
