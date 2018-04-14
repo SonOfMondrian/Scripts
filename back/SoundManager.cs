@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour {
     public static SoundManager instance = null; //싱글턴
+
     public AudioSource AudioPlayer;
     public AudioClip[] Clips;
 
@@ -13,7 +14,7 @@ public class SoundManager : MonoBehaviour {
     {
         instance = this;
 
-        Clips = new AudioClip[9];
+        Clips = new AudioClip[8];
 
         Clips[0] = Resources.Load<AudioClip>("Sound/Correct");
         Clips[1] = Resources.Load<AudioClip>("Sound/DoorClose");
@@ -23,7 +24,7 @@ public class SoundManager : MonoBehaviour {
         Clips[5] = Resources.Load<AudioClip>("Sound/InCorrect");
         Clips[6] = Resources.Load<AudioClip>("Sound/Levelup");
         Clips[7] = Resources.Load<AudioClip>("Sound/ObjectSelect");
-		Clips [8] = Resources.Load<AudioClip> ("Sound/FallBody");
+
 
     }
     void Start () {
@@ -67,9 +68,5 @@ public class SoundManager : MonoBehaviour {
     {
         AudioPlayer.PlayOneShot(Clips[6]);
     }
-		public void FallBody()
-	{
-		AudioPlayer.PlayOneShot (Clips [8]);
-	}
 
 }

@@ -19,9 +19,4 @@ public class MainPanelStruct : MonoBehaviour {
         BrainManager.instance.DoorAnimation.SetBool("OpenDoor", true);
         SoundManager.instance.DoorOpen();
     }
-
-	public void ElevatorSound()
-	{
-		SoundManager.instance.LevelUp ();
-	}
 }

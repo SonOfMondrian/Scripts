@@ -27,13 +27,23 @@ public class Raycast:MonoBehaviour
 
         Debug.DrawRay(transform.position,transform.forward * 10.0f,Color.yellow);
 
+
+        //if (SceneManager.GetActiveScene().buildIndex == 0)      //빌트씬0 번째 일때 (Main Scene)
+        //{
+
+
+        //}
+
+        //if(SceneManager.GetActiveScene().buildIndex == 1)      //빌트씬 1 번째 일때 (Game Scene)
+        //{
+
         if(Physics.Raycast(transform.position,transform.forward,out hit,10.0f))
         {
-            if(hit.collider.tag == "LEFT" || hit.collider.tag == "RIGHT" || hit.collider.tag == "GAMESTART"|| hit.collider.tag == "RETRY")
+            if(hit.collider.tag == "LEFT" || hit.collider.tag == "RIGHT" || hit.collider.tag == "GAMESTART")
                 hittime += Time.deltaTime;
             else
                 hittime = 0;
-            
+
 
             if(hittime >= maxhittime && hit.collider.tag == "GAMESTART" && start == false)     //게임시작
             {
@@ -41,14 +51,10 @@ public class Raycast:MonoBehaviour
                 Debug.Log("gamestart");
                 start = true;       //쳐다봤을때 딱 한번 호출하기 위해서(update함수라 계속호출됨)
             }
-            if (hittime >= 2.0f && hit.collider.tag == "RETRY")     //재시작
-            {
-                BrainManager.instance.Retry();
-                //Debug.Log("retry");
-                //SceneManager.LoadScene("Game");
-            }
-            
-            if (hittime >= maxhittime && hit.collider.tag == "LEFT")
+
+
+
+            if(hittime >= maxhittime && hit.collider.tag == "LEFT")
                 BrainManager.instance.LookedLeft();
 
             else if(hittime >= maxhittime && hit.collider.tag == "RIGHT")
@@ -57,5 +63,23 @@ public class Raycast:MonoBehaviour
         else
             hittime = 0;
 
+
+        //if(Physics.Raycast(transform.position,transform.forward,out hit,10.0f))
+        //{
+        //    if(hit.collider.tag == "LEFT" || hit.collider.tag == "RIGHT")
+        //        hittime += Time.deltaTime;
+        //    else
+        //        hittime = 0;
+
+        //    if(hittime >= maxhittime && hit.collider.tag == "LEFT")
+        //        BrainManager.instance.LookedLeft();
+
+        //    else if(hittime >= maxhittime && hit.collider.tag == "RIGHT")
+        //        BrainManager.instance.LookedRight();
+        //}
+        //else
+        //    hittime = 0;
+
+        // }
     }
 }
