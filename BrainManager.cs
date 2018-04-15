@@ -17,6 +17,7 @@ public class BrainManager:MonoBehaviour
     public bool AfterCheck;             //비활성 되었있는 Player를 찾기 위해 1초후에 찾기 위한 체크변수
     public int CountOfLevel;
     public int Level;                    //현재 스테이지 레벨;
+    public int Score;
 
     public float AfterCheckTime;        //Player를찾기위한 시간 변수
 
@@ -25,12 +26,12 @@ public class BrainManager:MonoBehaviour
     public GameObject Timer;
     public GameObject Panel;
     public GameObject Fade;
+    public GameObject GameOver_HighScore;
     
     public GameObject ScoreText;
     public Material[] mats;
 
     public int CorrectNum;
-    public int Score;
     public string HighScore;
 
     public Animator TimerAnimation;
@@ -56,6 +57,7 @@ public class BrainManager:MonoBehaviour
         Timer = GameObject.Find("Timer");
         ScoreText = GameObject.Find("Score").transform.Find("ScoreText").gameObject;
         FloorText = GameObject.Find("pCylinder1").transform.Find("Text").GetComponent<TextMesh>();
+        GameOver_HighScore = GameObject.Find("HighScore").transform.Find("score").gameObject;
 
         TimerAnimation = Timer.GetComponent<Animator>();
         DoorAnimation = GameObject.Find("liftdoor_lambert").GetComponent<Animator>();
@@ -134,7 +136,6 @@ public class BrainManager:MonoBehaviour
         LeftBox.GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
 
         Timer.transform.Find("polySurface1").GetComponent<Renderer>().material = mats[2];   //새로운 문제를 위해 타이머 색을 없앤다
-        //Timer.transform.Find("Arrow").GetComponent<Renderer>().material = mats[2];
 
         TimerAnimation.SetBool("SetQuiz",true);    //타이머 애니메이션 시작
         IsProgress = true;
@@ -155,13 +156,11 @@ public class BrainManager:MonoBehaviour
             LeftBox.GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
 
             Timer.transform.Find("polySurface1").GetComponent<Renderer>().material = mats[1];
-            //Timer.transform.Find("Arrow").GetComponent<Renderer>().material = mats[1];
 
             SoundManager.instance.PlayButtonSelect();
 
             IsLeft = true;
             IsRight = false;
-
         }
     }
 
@@ -173,7 +172,6 @@ public class BrainManager:MonoBehaviour
             RightBox.GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
 
             Timer.transform.Find("polySurface1").GetComponent<Renderer>().material = mats[0];
-           // Timer.transform.Find("Arrow").GetComponent<Renderer>().material = mats[0];
 
             SoundManager.instance.PlayButtonSelect();
             IsLeft = false;
@@ -223,7 +221,9 @@ public class BrainManager:MonoBehaviour
             SoundManager.instance.Correct();
             Panel.GetComponent<QuizText>().Correct();
             CountOfLevel++;
-			if(CountOfLevel <10)
+            Score++;
+
+            if (CountOfLevel <10)
             	Invoke("SetQuiz1", 1.8f);
 			else if(CountOfLevel ==10)
 			{
@@ -237,6 +237,7 @@ public class BrainManager:MonoBehaviour
             Panel.GetComponent<QuizText>().Incorrect();
             DoorAnimation.SetBool("CloseDoor",true);
             FloorAnimation.SetBool("OpenFloor", true);
+            GameOver_HighScore.GetComponent<TextMesh>().text = Score.ToString();
             SoundManager.instance.DoorClose();
             IsProgress = false;
             GameOver = true;
