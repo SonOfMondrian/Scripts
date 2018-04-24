@@ -12,7 +12,6 @@ public class QuizText : MonoBehaviour
     public TextMesh SolText2;
     public GameObject RightSol, LeftSol;
     public int[] sol;
-    //public GameObject asdf;
 
     // Use this for initialization
     void Start()

@@ -12,9 +12,6 @@ public class CreateFade : MonoBehaviour {
     {
         FadePrefab = Resources.Load<GameObject>("Prefabs/FadePanel");
         FadeObject = Instantiate(FadePrefab, this.transform);
-
-
-        //  FadePrefab.transform.Find("Fade").GetComponent<Animation>().Play("FadeIn");
     }
 	// Use this for initialization
 	void Start () {

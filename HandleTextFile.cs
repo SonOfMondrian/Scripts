@@ -13,17 +13,23 @@ public class HandleTextFile : MonoBehaviour
 
 
 
-    public string[] values1;
-    public string[] values2;
-    public string[] values3;
-    public string[] values4;
-    public string[] values5;
+     string[] values1;
+     string[] values2;
+     string[] values3;
+     string[] values4;
+     string[] values5;
 
-    public int[] solutions1;
-    public int[] solutions2;
-    public int[] solutions3;
-    public int[] solutions4;
-    public int[] solutions5;
+     bool[] check1;
+     bool[] check2;
+     bool[] check3;
+     bool[] check4;
+     bool[] check5;
+
+     int[] solutions1;
+     int[] solutions2;
+     int[] solutions3;
+     int[] solutions4;
+     int[] solutions5;
     public int index;
     public int solindex1;
     public int solindex2;
@@ -40,7 +46,13 @@ public class HandleTextFile : MonoBehaviour
     public int solution2;
 
     public GameObject QuizFunction;
+    public StringReader sr;
+    StreamWriter writer;
 
+    void Awake()
+    {
+        
+    }
     void Start()
     {
         QuizDatabase = new TextAsset[5];
@@ -57,6 +69,13 @@ public class HandleTextFile : MonoBehaviour
         solutions3 = new int[40];
         solutions4 = new int[40];
         solutions5 = new int[40];
+
+        check1 = new bool[20];
+        check2 = new bool[20];
+        check3 = new bool[20];
+        check4 = new bool[20];
+        check5 = new bool[20];
+
 
 
         index = 0;
@@ -79,8 +98,7 @@ public class HandleTextFile : MonoBehaviour
 
     public void GetHightScore()
     {
-        StringReader sr;
-
+        
         sr = new StringReader(HighScore.text);
 
         string Quizsources1 = sr.ReadLine();
@@ -89,10 +107,38 @@ public class HandleTextFile : MonoBehaviour
             return;
 
         scoreval = Quizsources1;
-
-        BrainManager.instance.HighScore =scoreval;
-
         sr.Close();
+        BrainManager.instance.HighScore = scoreval;
+        BrainManager.instance.ScoreText.GetComponent<TextMesh>().text = scoreval;
+        Debug.Log("텍스트파일에서 가져온 최고점수 : "+scoreval);
+    }
+
+    public void SetHighScore(string highscore)
+    {
+        //string path = "Assets/Resources/Text/HighScore";
+
+        //writer = new StreamWriter(path, true);
+
+
+        //File.WriteAllText("Assets/Resources/Text/HighScore", "asdf");
+        //File.WriteAllText()
+        //writer.Write(highscore);
+        //writer.Close();
+        //---------------------------------------
+
+        //StreamWriter swriter;
+
+        
+        //if (!File.Exists("Assets/Resources/Text/HighScore.txt"))
+        //    swriter = File.CreateText("Assets/Resources/Text/HighScore.txt");
+        //else
+        //    swriter = new StreamWriter("Assets/Resources/Text/HighScore.txt");
+
+        File.WriteAllText("Assets/Resources/Text/HighScore.txt", highscore);    //중요!!! 이거 딱 한줄만 쓰면 해당 파일에 덮어씌어줌 심플,간단,꿀팁
+        Debug.Log("입력 수행");
+        //BrainManager.instance.ScoreText.GetComponent<TextMesh>().text = highscore;
+        //swriter.Write(highscore.ToString());
+        //swriter.Close();
 
     }
 
@@ -176,60 +222,102 @@ public class HandleTextFile : MonoBehaviour
 
     public void SetQuiz2()
     {
-
-        switch (BrainManager.instance.Level)
+        if(BrainManager.instance.Level == 1)
         {
-            case 1:
-                RandomIndex = Random.Range(0, values1.Length);   //ex) 0,5 넣으면 0~4까지만 나온다.
+            RandomIndex = Random.Range(0, values1.Length);   //ex) 0,5 넣으면 0~4까지만 나온다.
 
+            if (check1[RandomIndex] == true)
+            {
+                SetQuiz2();
+                return;
+            }
+            else if(check1[RandomIndex] == false)
+            {
+                check1[RandomIndex] = true;
                 RandomQuizString = values1[RandomIndex];
 
                 solution1 = solutions1[RandomIndex * 2];
                 solution2 = solutions1[RandomIndex * 2 + 1];
-                break;
-            case 2:
-                RandomIndex = Random.Range(0, values2.Length);
+            }
 
+        }
+        else if (BrainManager.instance.Level == 2)
+        {
+            RandomIndex = Random.Range(0, values2.Length);   //ex) 0,5 넣으면 0~4까지만 나온다.
+
+            if (check2[RandomIndex] == true)
+            {
+                SetQuiz2();
+                return;
+            }
+            else if (check2[RandomIndex] == false)
+            {
+                check2[RandomIndex] = true;
                 RandomQuizString = values2[RandomIndex];
 
                 solution1 = solutions2[RandomIndex * 2];
                 solution2 = solutions2[RandomIndex * 2 + 1];
-                break;
-            case 3:
-                RandomIndex = Random.Range(0, values3.Length);
+            }
 
+        }
+        else if (BrainManager.instance.Level == 3)
+        {
+            RandomIndex = Random.Range(0, values3.Length);   //ex) 0,5 넣으면 0~4까지만 나온다.
+
+            if (check3[RandomIndex] == true)
+            {
+                SetQuiz2();
+                return;
+            }
+            else if (check3[RandomIndex] == false)
+            {
+                check3[RandomIndex] = true;
                 RandomQuizString = values3[RandomIndex];
 
                 solution1 = solutions3[RandomIndex * 2];
                 solution2 = solutions3[RandomIndex * 2 + 1];
-                break;
-            case 4:
-                RandomIndex = Random.Range(0, values4.Length);
+            }
 
+        }
+        else if (BrainManager.instance.Level == 4)
+        {
+            RandomIndex = Random.Range(0, values4.Length);   //ex) 0,5 넣으면 0~4까지만 나온다.
+
+            if (check4[RandomIndex] == true)
+            {
+                SetQuiz2();
+                return;
+            }
+            else if (check4[RandomIndex] == false)
+            {
+                check4[RandomIndex] = true;
                 RandomQuizString = values4[RandomIndex];
 
                 solution1 = solutions4[RandomIndex * 2];
                 solution2 = solutions4[RandomIndex * 2 + 1];
-                break;
-            case 5:
-                RandomIndex = Random.Range(0, values5.Length);
+            }
 
+        }
+        else if (BrainManager.instance.Level == 5)
+        {
+            RandomIndex = Random.Range(0, values5.Length);   //ex) 0,5 넣으면 0~4까지만 나온다.
+
+            if (check5[RandomIndex] == true)
+            {
+                SetQuiz2();
+                return;
+            }
+            else if (check5[RandomIndex] == false)
+            {
+                check5[RandomIndex] = true;
                 RandomQuizString = values5[RandomIndex];
 
                 solution1 = solutions5[RandomIndex * 2];
                 solution2 = solutions5[RandomIndex * 2 + 1];
-                break;
-        }
-        if (BrainManager.instance.Level == 1)
-        {
-            RandomIndex = Random.Range(0, values1.Length);
-
-            RandomQuizString = values1[RandomIndex];
-
-            solution1 = solutions1[RandomIndex * 2];
-            solution2 = solutions1[RandomIndex * 2 + 1];
+            }
 
         }
+        
         Debug.Log("랜덤 인덱스 :" + RandomIndex + "문제 :" + RandomQuizString + "답안 :" + solution1 + ", " + solution2);
 
         QuizFunction.GetComponent<QuizText>().SetQuiz3(RandomQuizString, solution1, solution2);

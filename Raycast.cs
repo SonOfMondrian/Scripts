@@ -5,11 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Raycast:MonoBehaviour
 {
-
     RaycastHit hit;
     public float hittime;
     public float maxhittime;
-
     public bool start;
 
     // Use this for initialization
@@ -38,14 +36,13 @@ public class Raycast:MonoBehaviour
             if(hittime >= maxhittime && hit.collider.tag == "GAMESTART" && start == false)     //게임시작
             {
                 BrainManager.instance.LookGameStartObject(hit);
-                Debug.Log("gamestart");
+                //Debug.Log("gamestart");
                 start = true;       //쳐다봤을때 딱 한번 호출하기 위해서(update함수라 계속호출됨)
             }
             if (hittime >= 2.0f && hit.collider.tag == "RETRY")     //재시작
             {
                 BrainManager.instance.Retry();
                 //Debug.Log("retry");
-                //SceneManager.LoadScene("Game");
             }
             
             if (hittime >= maxhittime && hit.collider.tag == "LEFT")

@@ -6,9 +6,7 @@ public class SoundManager : MonoBehaviour {
     public static SoundManager instance = null; //싱글턴
     public AudioSource AudioPlayer;
     public AudioClip[] Clips;
-
-
-    // Use this for initialization
+    
     private void Awake()
     {
         instance = this;
@@ -28,7 +26,6 @@ public class SoundManager : MonoBehaviour {
     }
     void Start () {
         AudioPlayer = this.GetComponent<AudioSource>();
-        //Clips = Resources.LoadAll<AudioClip>("Sound");
 	}
 
     public void PlayButtonSelect()

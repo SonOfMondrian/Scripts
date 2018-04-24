@@ -11,12 +11,6 @@ public class GameStart : MonoBehaviour {
         Fadeobject = this.gameObject;
         FadeAnimator = this.GetComponent<Animator>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public void LoadGameScene()
     {
         FadeAnimator.SetBool("FadeOut", true);
