@@ -13,11 +13,11 @@ public class HandleTextFile : MonoBehaviour
 
 
 
-     string[] values1;
-     string[] values2;
-     string[] values3;
-     string[] values4;
-     string[] values5;
+    public string[] values1;
+    public string[] values2;
+    public string[] values3;
+    public string[] values4;
+    public string[] values5;
 
      bool[] check1;
      bool[] check2;
@@ -25,11 +25,11 @@ public class HandleTextFile : MonoBehaviour
      bool[] check4;
      bool[] check5;
 
-     int[] solutions1;
-     int[] solutions2;
-     int[] solutions3;
-     int[] solutions4;
-     int[] solutions5;
+    public int[] solutions1;
+    public int[] solutions2;
+    public int[] solutions3;
+    public int[] solutions4;
+    public double[] solutions5;
     public int index;
     public int solindex1;
     public int solindex2;
@@ -42,8 +42,8 @@ public class HandleTextFile : MonoBehaviour
     int RandomIndex;
 
     public string RandomQuizString;
-    public int solution1;
-    public int solution2;
+    public double solution1;
+    public double solution2;
 
     public GameObject QuizFunction;
     public StringReader sr;
@@ -68,7 +68,7 @@ public class HandleTextFile : MonoBehaviour
         solutions2 = new int[40];
         solutions3 = new int[40];
         solutions4 = new int[40];
-        solutions5 = new int[40];
+        solutions5 = new double[40];
 
         check1 = new bool[20];
         check2 = new bool[20];
@@ -147,7 +147,7 @@ public class HandleTextFile : MonoBehaviour
         StringReader[] sr = new StringReader[5];
         StringReader[] sol = new StringReader[5];
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i <5; i++)
         {
             sr[i] = new StringReader(QuizDatabase[i].text);
             sol[i] = new StringReader(SolutionDatabase[i].text);
@@ -200,22 +200,22 @@ public class HandleTextFile : MonoBehaviour
                 solindex3++;
             }
             for (int i = 0; i < temp4.Length; i++)
-            {
+           {
                 solutions4[solindex4] = int.Parse(temp4[i]);
                 solindex4++;
             }
             for (int i = 0; i < temp5.Length; i++)
             {
-                solutions5[solindex5] = int.Parse(temp5[i]);
+                solutions5[solindex5] = double.Parse(temp5[i]);
                 solindex5++;
             }
             index++;
         }
-        for (int i = 0; i < sr.Length; i++)
-        {
-            sr[i].Close();
-            sol[i].Close();
-        }
+        //for (int i = 0; i < sr.Length; i++)
+        //{
+        //    sr[i].Close();
+        //    sol[i].Close();
+        //}
 
     }
 

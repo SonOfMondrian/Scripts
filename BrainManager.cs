@@ -35,7 +35,7 @@ public class BrainManager : MonoBehaviour
     public GameObject ScoreText;
     public Material[] mats;
 
-    public int CorrectNum;
+    public double CorrectNum;
     public string HighScore;
 
     public Animator TimerAnimation;
@@ -128,6 +128,8 @@ public class BrainManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Keypad1))
             Time.timeScale = 1.0f;
         if (Input.GetKeyDown(KeyCode.Keypad5))
+            Time.timeScale = 5.0f;
+        if (Input.GetKeyDown(KeyCode.Space))
             Time.timeScale = 5.0f;
     }
 
@@ -256,6 +258,7 @@ public class BrainManager : MonoBehaviour
             SoundManager.instance.Correct();
             Panel.GetComponent<QuizText>().Correct();
             CountOfLevel++;
+            Time.timeScale = 1.0f;
             Score++;
 
             if (CountOfLevel < 10)
@@ -269,8 +272,9 @@ public class BrainManager : MonoBehaviour
         else if (!IsCorrect)
         {
             SoundManager.instance.Incorrect();
+            Time.timeScale = 1.0f;
             //HighScore = Score.ToString();
-           
+
             Panel.GetComponent<QuizText>().Incorrect();
             DoorAnimation.SetBool("CloseDoor", true);
             FloorAnimation.SetBool("OpenFloor", true);

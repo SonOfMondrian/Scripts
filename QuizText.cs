@@ -29,11 +29,11 @@ public class QuizText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            BrainManager.instance.SetQuiz1();
+        //if (Input.GetKeyDown(KeyCode.Space))
+          //  BrainManager.instance.SetQuiz1();
     }
 
-    public void SetQuiz3(string strquiz, int sol1, int sol2)
+    public void SetQuiz3(string strquiz, double sol1, double sol2)
     {
         BrainManager.instance.CorrectNum = sol1;
         int random = Random.Range(0, 2);
@@ -55,14 +55,18 @@ public class QuizText : MonoBehaviour
         else if (strquiz.Length == 10)
             QuizPanelText.fontSize = 100;
         else if (strquiz.Length == 11)
-            QuizPanelText.fontSize = 92;
+            QuizPanelText.fontSize = 103;
         else if (strquiz.Length == 12)
-            QuizPanelText.fontSize = 88;
+            QuizPanelText.fontSize = 95;
         else if (strquiz.Length == 13)
-            QuizPanelText.fontSize = 80;
+            QuizPanelText.fontSize = 90;
+        else if (strquiz.Length == 14)
+            QuizPanelText.fontSize = 83;
+        else if (strquiz.Length == 15)
+            QuizPanelText.fontSize = 78;
 
 
-    switch (sol1.ToString().Length)
+        switch (sol1.ToString().Length)
         {
             case 1:
                 SolText1.fontSize = 271;
@@ -79,6 +83,19 @@ public class QuizText : MonoBehaviour
             case 5:
                 SolText1.fontSize = 151;
                 break;
+            case 6:
+                SolText1.fontSize = 120;
+                break;
+            case 7:
+                SolText1.fontSize = 102;
+                break;
+            case 8:
+                SolText1.fontSize = 89;
+                break;
+            case 9:
+                SolText1.fontSize = 80;
+                break;
+
         }
 
         switch (sol2.ToString().Length)
@@ -97,6 +114,18 @@ public class QuizText : MonoBehaviour
                 break;
             case 5:
                 SolText2.fontSize = 151;
+                break;
+            case 6:
+                SolText2.fontSize = 120;
+                break;
+            case 7:
+                SolText2.fontSize = 102;
+                break;
+            case 8:
+                SolText2.fontSize = 89;
+                break;
+            case 9:
+                SolText2.fontSize = 80;
                 break;
         }
 

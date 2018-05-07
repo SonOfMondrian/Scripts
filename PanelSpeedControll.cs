@@ -12,11 +12,11 @@ public class PanelSpeedControll : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("speed UP");
-            GameObject.Find("QuizPanel").GetComponent<Animator>().speed += 1.0f;
+		//if(Input.GetKeyDown(KeyCode.Space))
+  //      {
+  //          Debug.Log("speed UP");
+  //          GameObject.Find("QuizPanel").GetComponent<Animator>().speed += 1.0f;
 
-        }
+  //      }
 	}
 }
